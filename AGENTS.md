@@ -19,6 +19,16 @@
 - 在用户确认计划前，不执行实际代码或文档修改。
 - 用户明确要求实现已确认计划时，可以开始执行。
 
+## 客户端 MVVM 约束
+
+- HarmonyOS 客户端代码必须遵循 MVVM，详细规范见 `doc/MVVM.md`。
+- 依赖方向固定为：`View -> ViewModel -> Repository -> Service`。
+- `Model`、`DTO`、`ViewState` 是数据结构，按职责被各层引用。
+- ArkUI 页面和组件只负责 UI 渲染、状态绑定和事件转发。
+- 页面中不得直接写网络请求、持久化访问、复杂业务判断或 Mock 数据。
+- Mock 数据必须通过 Repository 提供，便于后续替换为真实后端。
+- 涉及客户端多文件改动时，先阅读 `doc/MVVM.md` 再设计实现。
+
 ## 完成输出规则
 
 任务完成后，按 `doc/EndOutput.md` 汇报：
