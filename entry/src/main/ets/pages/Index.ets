@@ -1,22 +1,38 @@
+import { LoginPage } from './LoginPage';
+import { MainTabPage } from './MainTabPage';
+import { OnboardingPage } from './OnboardingPage';
+
+enum AppStage {
+  Login = 'login',
+  Onboarding = 'onboarding',
+  Main = 'main'
+}
+
 @Entry
-@Component
+@ComponentV2
 struct Index {
-  @State message: string = 'Hello World';
+  @Local private appStage: AppStage = AppStage.Login;
 
   build() {
-    RelativeContainer() {
-      Text(this.message)
-        .id('HelloWorld')
-        .fontSize($r('app.float.page_text_font_size'))
-        .fontWeight(FontWeight.Bold)
-        .alignRules({
-          center: { anchor: '__container__', align: VerticalAlign.Center },
-          middle: { anchor: '__container__', align: HorizontalAlign.Center }
+    Navigation() {
+      if (this.appStage === AppStage.Login) {
+        LoginPage({
+          onLoginSuccess: () => {
+            this.appStage = AppStage.Onboarding;
+          }
         })
-        .onClick(() => {
-          this.message = 'Welcome';
+      } else if (this.appStage === AppStage.Onboarding) {
+        OnboardingPage({
+          onComplete: () => {
+            this.appStage = AppStage.Main;
+          }
         })
+      } else {
+        MainTabPage()
+      }
     }
+    .title('知音')
+    .hideTitleBar(this.appStage === AppStage.Main)
     .height('100%')
     .width('100%')
   }
