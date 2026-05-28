@@ -70,9 +70,11 @@ export struct MainTabPage {
         .fontColor(this.getDisplayIndex() === index ? '#0A6CFF' : '#7A8494')
         .fontWeight(this.getDisplayIndex() === index ? FontWeight.Medium : FontWeight.Regular)
     }
-    .width('100%')
-    .height(56)
+    .width(64)
+    .height(48)
     .justifyContent(FlexAlign.Center)
+    .borderRadius(12)
+    .backgroundColor(this.getDisplayIndex() === index ? '#EAF2FF' : Color.Transparent)
   }
 
   private updateGestureTargetIndex(index: number, currentOffset: number): void {
